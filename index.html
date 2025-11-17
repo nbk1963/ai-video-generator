@@ -1,211 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Generator | Create Stunning Videos with AI</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Video Generator — Create Stunning Videos</title>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- External CSS -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Manifest for PWA -->
-    <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="src/styles.css">
+  <meta name="description" content="AI VideoGen — create videos from text prompts. Demo UI & templates ready for GitHub.">
 </head>
-
 <body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="index.html">AI<span>VideoGen</span></a>
+      <nav class="nav">
+        <a href="pages/about.html">About</a>
+        <a href="pages/contact.html">Contact</a>
+        <a href="pages/privacy-policy.html">Privacy</a>
+        <a href="pages/terms.html">Terms</a>
+        <button id="themeToggle" class="btn small">🌙</button>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Video Background -->
-    <div class="video-background">
-        <video autoplay muted loop>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" type="video/mp4">
-        </video>
-        <div class="overlay"></div>
+  <main>
+    <!-- Hero -->
+    <section class="hero container">
+      <div class="hero-left">
+        <h1>Turn text into cinematic AI videos</h1>
+        <p>Create short clips or long scenes using natural-language prompts. This is a frontend template — connect your model backend or API to enable generation.</p>
+        <div class="cta-row">
+          <button id="openGenerator" class="btn primary">Start Generating</button>
+          <a class="btn ghost" href="#examples">See Examples</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="video-preview card" id="heroPreview">
+          <video controls muted width="100%" poster="">
+            <source src="assets/sample-video.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Generator modal (hidden by default) -->
+    <div id="generatorModal" class="modal">
+      <div class="modal-inner">
+        <header class="modal-header">
+          <h2>Generate AI Video</h2>
+          <button id="closeModal" class="btn icon">✕</button>
+        </header>
+
+        <form id="generateForm" class="form">
+          <label>Prompt</label>
+          <textarea id="prompt" placeholder="Describe the video you want (scene, style, mood, colors)..." rows="5"></textarea>
+
+          <div class="row">
+            <div class="col">
+              <label>Quality</label>
+              <select id="quality">
+                <option value="720p">720p</option>
+                <option value="1080p">1080p</option>
+                <option value="4k" selected>4K</option>
+              </select>
+            </div>
+            <div class="col">
+              <label>Style</label>
+              <select id="style">
+                <option value="realistic">Realistic</option>
+                <option value="cinematic" selected>Cinematic</option>
+                <option value="artistic">Artistic</option>
+              </select>
+            </div>
+            <div class="col">
+              <label>Duration</label>
+              <select id="duration">
+                <option value="10s">10s</option>
+                <option value="30s">30s</option>
+                <option value="1m">1m</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="cancelGen" class="btn">Cancel</button>
+            <button type="submit" class="btn primary">Generate</button>
+          </div>
+
+          <div id="generateStatus" class="status" aria-live="polite"></div>
+        </form>
+      </div>
     </div>
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="logo">
-                <i class="fas fa-play-circle"></i>
-                AI<span>VideoGen</span>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Create Stunning AI Videos</h1>
-        <p>Transform your ideas into breathtaking cinematic masterpieces with our advanced AI video generation technology.</p>
-        <button class="btn" id="startBtn">START GENERATING VIDEO</button>
+    <!-- Examples -->
+    <section id="examples" class="container section">
+      <h2>Ready-made prompts</h2>
+      <div class="grid prompts">
+        <button class="prompt-card" data-prompt="A cinematic drone shot over snow-capped mountains at golden hour, hyper-realistic, 4K.">Mountain Majesty</button>
+        <button class="prompt-card" data-prompt="A neon-soaked futuristic cityscape at night, flying vehicles, cyberpunk, cinematic lighting.">Futuristic City</button>
+        <button class="prompt-card" data-prompt="A calm forest through four seasons time-lapse, atmospheric, documentary style.">Seasonal Forest</button>
+        <button class="prompt-card" data-prompt="A wide underwater scene with colorful coral and fish, crystal clear water, cinematic documentary.">Underwater World</button>
+      </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Powerful Features</h2>
-                <p>Our AI video generator comes packed with features to bring your vision to life</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-film"></i>
-                    </div>
-                    <h3>Cinematic Quality</h3>
-                    <p>Generate videos with Hollywood-level cinematic quality.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>Artistic Styles</h3>
-                    <p>Choose from a variety of artistic styles.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-expand"></i>
-                    </div>
-                    <h3>Ultra HD Resolution</h3>
-                    <p>Create videos in 720p to 4K Ultra HD.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Prompts Section -->
-    <section class="prompts">
-        <div class="container">
-            <div class="section-title">
-                <h2>Ready-Made Prompts</h2>
-                <p>Get started quickly with our professionally crafted prompts</p>
-            </div>
-
-            <div class="prompts-grid">
-
-                <div class="prompt-card" data-prompt="A cinematic shot of a futuristic city at sunset...">
-                    <h3>Futuristic City</h3>
-                    <p>A cinematic futuristic city at sunset.</p>
-                </div>
-
-                <div class="prompt-card" data-prompt="An artistic time-lapse of a forest changing through seasons...">
-                    <h3>Seasonal Forest</h3>
-                    <p>A time-lapse of changing seasons.</p>
-                </div>
-
-                <div class="prompt-card" data-prompt="A realistic underwater scene with marine life...">
-                    <h3>Underwater World</h3>
-                    <p>A realistic underwater scene.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-                <p>Get in touch with our team</p>
-            </div>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon"><i class="fas fa-user"></i></div>
-                    <div class="contact-details">
-                        <h4>Name</h4>
-                        <p>MUHAMMAD MOOSA KHAN</p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                    <div class="contact-details">
-                        <h4>Phone</h4>
-                        <p>03324526020</p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                    <div class="contact-details">
-                        <h4>Email</h4>
-                        <p>karachieditorz@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="logo">
-                <i class="fas fa-play-circle"></i>
-                AI<span>VideoGen</span>
-            </div>
-            <p class="developer">Developed by <span>karachiboyz</span></p>
-        </div>
+    <!-- Footer -->
+    <footer class="site-footer container">
+      <div>© 2025 AI VideoGen — Demo UI</div>
+      <div class="small-links"><a href="pages/privacy-policy.html">Privacy</a> · <a href="pages/terms.html">Terms</a></div>
     </footer>
+  </main>
 
-    <!-- Modal -->
-    <div class="modal" id="generationModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Generate Your AI Video</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-
-            <form id="videoForm">
-
-                <div class="form-group">
-                    <label>Video Prompt</label>
-                    <textarea id="videoPrompt" class="form-control" rows="4"></textarea>
-                </div>
-
-                <div class="form-group select-group">
-                    <div>
-                        <label>Quality</label>
-                        <select id="videoQuality" class="form-control">
-                            <option value="720p">720p</option>
-                            <option value="1080p">1080p</option>
-                            <option value="4k" selected>4K</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label>Style</label>
-                        <select id="videoStyle" class="form-control">
-                            <option value="realistic">Realistic</option>
-                            <option value="cinematic" selected>Cinematic</option>
-                            <option value="artistic">Artistic</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Duration</label>
-                    <select id="videoDuration" class="form-control">
-                        <option value="10s">10 Seconds</option>
-                        <option value="30s">30 Seconds</option>
-                        <option value="1m">1 Minute</option>
-                    </select>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
-                    <button type="submit" class="btn">Generate Video</button>
-                </div>
-
-            </form>
-        </div>
-    </div>
-
-    <!-- JS -->
-    <script src="script.js"></script>
-
+  <script src="src/app.js" defer></script>
 </body>
 </html>
