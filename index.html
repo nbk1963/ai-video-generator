@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Generator | Create Stunning Videos with AI</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-play-circle"></i>
+                AI<span>VideoGen</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Create Stunning AI Videos</h1>
+        <p>Transform your ideas into breathtaking cinematic masterpieces with our advanced AI video generation technology.</p>
+        <button class="btn" id="startBtn">START GENERATING VIDEO</button>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features</h2>
+                <p>Our AI video generator comes packed with features to bring your vision to life</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3>Cinematic Quality</h3>
+                    <p>Generate videos with Hollywood-level cinematic quality.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Artistic Styles</h3>
+                    <p>Choose from a variety of artistic styles.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <h3>Ultra HD Resolution</h3>
+                    <p>Create videos in 720p to 4K Ultra HD.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prompts Section -->
+    <section class="prompts">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ready-Made Prompts</h2>
+                <p>Get started quickly with our professionally crafted prompts</p>
+            </div>
+
+            <div class="prompts-grid">
+
+                <div class="prompt-card" data-prompt="A cinematic shot of a futuristic city at sunset...">
+                    <h3>Futuristic City</h3>
+                    <p>A cinematic futuristic city at sunset.</p>
+                </div>
+
+                <div class="prompt-card" data-prompt="An artistic time-lapse of a forest changing through seasons...">
+                    <h3>Seasonal Forest</h3>
+                    <p>A time-lapse of changing seasons.</p>
+                </div>
+
+                <div class="prompt-card" data-prompt="A realistic underwater scene with marine life...">
+                    <h3>Underwater World</h3>
+                    <p>A realistic underwater scene.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Get in touch with our team</p>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-user"></i></div>
+                    <div class="contact-details">
+                        <h4>Name</h4>
+                        <p>MUHAMMAD MOOSA KHAN</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <div class="contact-details">
+                        <h4>Phone</h4>
+                        <p>03324526020</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p>karachieditorz@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-play-circle"></i>
+                AI<span>VideoGen</span>
+            </div>
+            <p class="developer">Developed by <span>karachiboyz</span></p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="generationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Generate Your AI Video</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+
+            <form id="videoForm">
+
+                <div class="form-group">
+                    <label>Video Prompt</label>
+                    <textarea id="videoPrompt" class="form-control" rows="4"></textarea>
+                </div>
+
+                <div class="form-group select-group">
+                    <div>
+                        <label>Quality</label>
+                        <select id="videoQuality" class="form-control">
+                            <option value="720p">720p</option>
+                            <option value="1080p">1080p</option>
+                            <option value="4k" selected>4K</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Style</label>
+                        <select id="videoStyle" class="form-control">
+                            <option value="realistic">Realistic</option>
+                            <option value="cinematic" selected>Cinematic</option>
+                            <option value="artistic">Artistic</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Duration</label>
+                    <select id="videoDuration" class="form-control">
+                        <option value="10s">10 Seconds</option>
+                        <option value="30s">30 Seconds</option>
+                        <option value="1m">1 Minute</option>
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn">Generate Video</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+
+</body>
+</html>
