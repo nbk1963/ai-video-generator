@@ -1,15 +1,9 @@
 {
-  "name": "AI Video Generator",
-  "short_name": "AI VideoGen",
-  "start_url": "/",
+  "name": "AI VideoGen",
+  "short_name": "AIVideoGen",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#ff4d94",
-  "icons": [
-    {
-      "src": "icon512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ]
+  "background_color": "#0b0f19",
+  "theme_color": "#6a11cb",
+  "icons": []
 }
